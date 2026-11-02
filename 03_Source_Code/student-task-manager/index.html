@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Organize academic tasks, deadlines, and progress in one place.">
+  <title>Student Task Manager</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <a href="#" aria-label="Student Task Manager home">Student Task Manager</a>
+  </header>
+
+  <main>
+    <!-- Sign-in and registration forms -->
+    <section id="authentication" aria-labelledby="welcome-heading">
+      <h1 id="welcome-heading">Welcome to your task manager</h1>
+      <p>Sign in or create an account to manage your academic tasks.</p>
+
+      <section aria-labelledby="login-heading">
+        <h2 id="login-heading">Log in</h2>
+        <form id="login-form">
+          <div>
+            <label for="login-email">Email address</label>
+            <input
+              type="email"
+              id="login-email"
+              name="email"
+              autocomplete="email"
+              required
+            >
+          </div>
+
+          <div>
+            <label for="login-password">Password</label>
+            <input
+              type="password"
+              id="login-password"
+              name="password"
+              autocomplete="current-password"
+              required
+            >
+          </div>
+
+          <button type="submit">Log in</button>
+        </form>
+      </section>
+
+      <section aria-labelledby="register-heading">
+        <h2 id="register-heading">Create an account</h2>
+        <form id="registration-form">
+          <div>
+            <label for="student-name">Full name</label>
+            <input
+              type="text"
+              id="student-name"
+              name="name"
+              autocomplete="name"
+              required
+            >
+          </div>
+
+          <div>
+            <label for="register-email">Email address</label>
+            <input
+              type="email"
+              id="register-email"
+              name="email"
+              autocomplete="email"
+              required
+            >
+          </div>
+
+          <div>
+            <label for="register-password">Password</label>
+            <input
+              type="password"
+              id="register-password"
+              name="password"
+              autocomplete="new-password"
+              required
+            >
+          </div>
+
+          <button type="submit">Create account</button>
+        </form>
+      </section>
+    </section>
+
+    <!-- The dashboard will be displayed after a student logs in -->
+    <section id="dashboard" aria-labelledby="dashboard-heading" hidden>
+      <header>
+        <div>
+          <h1 id="dashboard-heading">Dashboard</h1>
+          <p>Keep track of your academic work and deadlines.</p>
+        </div>
+
+        <button type="button" id="logout-button">Log out</button>
+      </header>
+
+      <!-- Task summary -->
+      <section aria-labelledby="summary-heading">
+        <h2 id="summary-heading">Task summary</h2>
+
+        <dl>
+          <div>
+            <dt>Total tasks</dt>
+            <dd id="total-tasks">0</dd>
+          </div>
+          <div>
+            <dt>Pending</dt>
+            <dd id="pending-tasks">0</dd>
+          </div>
+          <div>
+            <dt>In progress</dt>
+            <dd id="in-progress-tasks">0</dd>
+          </div>
+          <div>
+            <dt>Completed</dt>
+            <dd id="completed-tasks">0</dd>
+          </div>
+        </dl>
+      </section>
+
+      <!-- The same form can be used to add or edit a task -->
+      <section aria-labelledby="task-form-heading">
+        <h2 id="task-form-heading">Create a task</h2>
+
+        <form id="task-form">
+          <input type="hidden" id="task-id" name="taskId">
+
+          <div>
+            <label for="task-title">Task title</label>
+            <input
+              type="text"
+              id="task-title"
+              name="title"
+              maxlength="120"
+              required
+            >
+          </div>
+
+          <div>
+            <label for="task-course">Course or subject</label>
+            <input
+              type="text"
+              id="task-course"
+              name="course"
+              maxlength="120"
+            >
+          </div>
+
+          <div>
+            <label for="task-description">Description</label>
+            <textarea
+              id="task-description"
+              name="description"
+              rows="4"
+            ></textarea>
+          </div>
+
+          <div>
+            <label for="task-deadline">Deadline</label>
+            <input
+              type="date"
+              id="task-deadline"
+              name="deadline"
+              required
+            >
+          </div>
+
+          <div>
+            <label for="task-status">Status</label>
+            <select id="task-status" name="status" required>
+              <option value="pending">Pending</option>
+              <option value="in-progress">In Progress</option>
+              <option value="completed">Completed</option>
+            </select>
+          </div>
+
+          <button type="submit" id="save-task-button">Save task</button>
+          <button type="reset" id="cancel-edit-button">Clear form</button>
+        </form>
+      </section>
+
+      <!-- Upcoming tasks -->
+      <section aria-labelledby="upcoming-heading">
+        <h2 id="upcoming-heading">Upcoming tasks</h2>
+        <ul id="upcoming-task-list" aria-live="polite">
+          <li id="upcoming-empty-state">No upcoming tasks.</li>
+        </ul>
+      </section>
+
+      <!-- Overdue tasks -->
+      <section aria-labelledby="overdue-heading">
+        <h2 id="overdue-heading">Overdue tasks</h2>
+        <ul id="overdue-task-list" aria-live="polite">
+          <li id="overdue-empty-state">No overdue tasks.</li>
+        </ul>
+      </section>
+
+      <!-- Task list and status filter -->
+      <section aria-labelledby="all-tasks-heading">
+        <h2 id="all-tasks-heading">All tasks</h2>
+
+        <div>
+          <label for="status-filter">Filter by status</label>
+          <select id="status-filter" name="statusFilter">
+            <option value="all">All statuses</option>
+            <option value="pending">Pending</option>
+            <option value="in-progress">In Progress</option>
+            <option value="completed">Completed</option>
+          </select>
+        </div>
+
+        <ul id="task-list" aria-live="polite">
+          <li id="tasks-empty-state">No tasks yet. Create a task to get started.</li>
+        </ul>
+      </section>
+    </section>
+  </main>
+
+  <!-- Template used later to display each task -->
+  <template id="task-template">
+    <li>
+      <article>
+        <h3 data-task-title></h3>
+        <p data-task-course></p>
+        <p data-task-description></p>
+        <p>Deadline: <time data-task-deadline></time></p>
+        <p>Status: <span data-task-status></span></p>
+
+        <button type="button" data-action="edit">Edit</button>
+        <button type="button" data-action="delete">Delete</button>
+      </article>
+    </li>
+  </template>
+  <script src="script.js" defer></script>
+</body>
+</html>
